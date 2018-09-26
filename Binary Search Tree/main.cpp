@@ -2,16 +2,17 @@
 
 using namespace std;
 
+template<typename T>
 class Node {
 public:
     Node* left;
     Node* right;
-    int data;
+    T data;
     int subtree_size;
     int level;
     int height;
     int cnt;
-    Node (int _data = 0, int _level = 0) {
+    Node (T _data = 0, int _level = 0) {
         data = _data;
         level = _level;
         left = nullptr;
@@ -38,9 +39,10 @@ public:
     }
 };
 
+template <typename T>
 class BST {
 public:
-    Node* root;
+    Node<T>* root;
     int height;
     int _size;
 
@@ -50,9 +52,9 @@ public:
         _size = 0;
     }
 
-    Node* insert(int value, Node* t, int level = 1) {
+    Node<T>* insert(T value, Node<T>* t, int level = 1) {
         if (t == nullptr) {
-            t = new Node(value, level);
+            t = new Node<T>(value, level);
             _size++;
             height = max(height, level);
         }else {
@@ -70,7 +72,7 @@ public:
         return t;
     }
 
-    void insert(int value) {
+    void insert(T value) {
         root = insert(value, root);
     }
 
@@ -82,7 +84,7 @@ public:
         return _size;
     }
 
-    int getKth(int k, Node* t) {
+    int getKth(int k, Node<T>* t) {
         int size_left = t->left == nullptr ? 0 : t->left->subtree_size;
         if (k - 1 == size_left) {
             return t->data;
@@ -90,41 +92,41 @@ public:
         return k <= size_left ? getKth(k, t->left) : getKth(k - size_left - 1, t->right);
     }
 
-    int getKth(int k) {
+    T getKth(int k) {
         return getKth(k, root);
     }
 
-    void inOrderTraversal(Node* t) {
+    void inOrderTraversal(Node<T>* t) {
         if (t->left != nullptr) inOrderTraversal(t->left);
         cout << t->data << ' ' << t->cnt << endl;
         if (t->right != nullptr) inOrderTraversal(t->right);
     }
 
-    void preOrderTraversal(Node* t) {
+    void preOrderTraversal(Node<T>* t) {
         cout << t->data << endl;
         if (t->left != nullptr) preOrderTraversal(t->left);
         if (t->right != nullptr) preOrderTraversal(t->right);
     }
 
-    void postOrderTraversal(Node* t) {
+    void postOrderTraversal(Node<T>* t) {
         if (t->left != nullptr) postOrderTraversal(t->left);
         if (t->right != nullptr) postOrderTraversal(t->right);
         cout << t->data << endl;
     }
 
-    void printLeafs(Node* t) {
+    void printLeafs(Node<T>* t) {
         if (t->left == nullptr && t->right == nullptr) cout << t->data << endl;
         if (t->left != nullptr) printLeafs(t->left);
         if (t->right != nullptr) printLeafs(t->right);
     }
 
-    void print(Node* t) {
+    void print(Node<T>* t) {
         if (t->left != nullptr) print(t->left);
         if ((t->left != nullptr) ^ (t->right != nullptr)) cout << t->data << endl;
         if (t->right != nullptr) print(t->right);
     }
 
-    bool isBalanced(Node* t) {
+    bool isBalanced(Node<T>* t) {
         if (t == nullptr) return true;
         int height_left = t->left == nullptr ? 0 : t->left->height;
         int height_right = t->right == nullptr ? 0 : t->right->height;
@@ -160,7 +162,7 @@ public:
 };
 
 int main () {
-    BST mybst = BST();
+    BST <int> mybst;
     int x;
     while (cin >> x) {
         if (x == 0) break;

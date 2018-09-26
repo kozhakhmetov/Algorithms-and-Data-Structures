@@ -1,33 +1,39 @@
 
 #include <iostream>
+#include <string>
 
 using namespace std;
 
+template <typename T>
 class Node {
 public:
-    Node* next = (NULL);
-    Node* prev = (NULL);
-    int data;
+    Node* next;
+    Node* prev;
+    T data;
 
-    Node (int _data = 0) {
+    Node (T _data = 0) {
         data = _data;
+        next = nullptr;
+        prev = nullptr;
     }
 
 };
 
+template <typename T>
 class MyQueue {
 public:
-    Node* head;
-    Node* tail;
-    int _size = 0;
+    Node<T>* head;
+    Node<T>* tail;
+    int _size;
 
     MyQueue () {
-        head = NULL;
-        tail = NULL;
+        _size = 0;
+        head = nullptr;
+        tail = nullptr;
     }
 
-    void push(int val) {
-        Node* temp = new Node(val);
+    void push(T val) {
+        Node<T>* temp = new Node<T>(val);
         if (_size == 0) {
             head = temp;
             tail = temp;
@@ -39,12 +45,12 @@ public:
         _size++;
     }
 
-    int front() {
+    T front() {
       return tail->data;
     }
 
-    int pop() {
-        int val = tail->data;
+    T pop() {
+        T val = tail->data;
         if (tail->prev != NULL)
             tail = tail->prev;
         tail->next = nullptr;
@@ -69,5 +75,4 @@ public:
 };
 
 int main () {
-
 }

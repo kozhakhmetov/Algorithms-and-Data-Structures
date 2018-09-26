@@ -2,50 +2,52 @@
 
 using namespace std;
 
+template <typename T>
 class Node {
 
 public:
-    Node* next = (NULL);
-    Node* prev = (NULL);
-    int data;
+    Node* next;
+    Node* prev;
+    T data;
 
-    Node (int _data = 0) {
+    Node (T _data = 0) {
         data = _data;
-        next = (NULL);
-        prev = (NULL);
+        next = (nullptr);
+        prev = (nullptr);
     }
 };
 
+template <typename T>
 class LinkedList {
 
 public:
-    Node* head;
-    Node* tail;
-    int Size;
+    Node<T>* head;
+    Node<T>* tail;
+    int _size;
 
     LinkedList () {
-        head = new Node(NULL);
+        head = new Node<T>(NULL);
         tail = head;
-        Size = 0;
+        _size = 0;
     }
 
-    void add(int val) {
-        Node* temp = new Node(val);
+    void add(T val) {
+        Node<T>* temp = new Node<T>(val);
         tail->next = temp;
         temp->prev = tail;
         tail = temp;
-        Size++;
+        _size++;
     }
 
     bool empty() {
-        return (Size == 0);
+        return (_size == 0);
     }
 
     void remove_ith(int id) {
-        if (id > Size) {
+        if (id > _size) {
             return;
         }
-        Node* cur = head;
+        Node<T>* cur = head;
         while (cur->next != NULL) {
             cur = cur->next;
             if (--id == 0) {
@@ -60,7 +62,7 @@ public:
     }
 
     void print() {
-        Node* cur = head;
+        Node<T>* cur = head;
         while (cur->next != NULL) {
             cur = cur->next;
             cout << cur->data << ' ';

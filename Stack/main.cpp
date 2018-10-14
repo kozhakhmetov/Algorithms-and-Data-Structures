@@ -4,6 +4,7 @@ using namespace std;
 
 class Node {
 public:
+    
     Node* next = (NULL);
     Node* prev = (NULL);
     int data;
@@ -53,4 +54,5 @@ public:
 };
 
 int main() {
+    cout<<"Salam Kozhakhmetov )))"<<endl;
 }
